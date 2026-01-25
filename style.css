@@ -1,0 +1,215 @@
+:root {
+  --cream: #f7efe8;
+  --soft-cream: #fff8f2;
+  --dusty-rose: #d8a39a;
+  --rose-dark: #b8897d;
+  --text-dark: #3b3b3b;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #eae5df;
+  color: var(--text-dark);
+}
+
+.invitation {
+  margin: auto;
+  background: var(--white);
+}
+
+section {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+.btn {
+  background: var(--rose-dark);
+  color: white;
+  border: none;
+  padding: 12px 26px;
+  border-radius: 999px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.btn.small {
+  padding: 8px 18px;
+  font-size: 13px;
+}
+
+/* HERO */
+.hero {
+  min-height: 80vh;
+  padding: 80px 24px;
+  color: white;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("./source/hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.hero-title {
+  font-size: 36px;
+  margin: 50px 0 10px;
+}
+
+.hero-date {
+  font-size: 18px;
+  margin: 0 0 30px;
+}
+
+/* COUPLE */
+.couple {
+  position: relative;
+}
+
+.names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.divider {
+  width: 1px;
+  height: 60px;
+  background: var(--text-dark);
+}
+
+.floral {
+  width: 80px;
+  position: absolute;
+}
+
+.floral.left {
+  left: -20px;
+  top: 10px;
+}
+
+.floral.right {
+  right: -20px;
+  bottom: 10px;
+}
+
+/* ILLUSTRATION */
+.illustration-box {
+  width: 120px;
+  height: 160px;
+  margin: auto;
+  border-radius: 60px;
+  background: linear-gradient(180deg, #ddd, #bbb);
+}
+
+/* COUNTDOWN */
+.countdown {
+  background: var(--soft-cream);
+}
+
+.timer {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0;
+}
+
+.timer span {
+  display: block;
+  font-size: 12px;
+}
+
+/* BRIDE & GROOM */
+.bride-groom {
+  background: var(--dusty-rose);
+  color: white;
+}
+
+.card {
+  margin-top: 32px;
+}
+
+.photo {
+  width: 190px;
+  height: 240px;
+  margin: auto;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e6cfc5, #cfa39a);
+  box-shadow: 0 14px 32px rgba(0,0,0,.15);
+  margin-bottom: 16px;
+}
+
+/* STORY */
+.story {
+  background: #fff3d6;
+}
+
+.story p {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* EVENT */
+.event-card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+  border: 1px solid #d5c9bf;
+}
+
+.event-date .date {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* RSVP */
+form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input, select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* SCROLL ANIMATION */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.8s ease;
+}
+
+[data-animate].show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .invitation {
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.18);
+  }
+}
