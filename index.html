@@ -786,9 +786,8 @@
 <script>
   // ── URL Param ──────────────────────────────────
   (function() {
-    const segments = window.location.pathname.split('/').filter(Boolean);
-    const raw = segments[segments.length - 1];
-    if (raw && raw !== 'index.html') {
+    const raw = window.location.search.replace('?','').trim;
+    if (raw) {
       // Insert space before each capital letter (camelCase → words)
       const name = raw.replace(/([A-Z])/g, ' $1').trim();
       const el = document.getElementById('guest-name');
