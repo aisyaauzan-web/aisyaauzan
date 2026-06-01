@@ -325,6 +325,9 @@
       line-height: 1.8;
       text-align: center;
     }
+    #guest-name{
+      font-weight: 800;
+    }
 
     /* ══════════════════════════════════════════════════
        § 5  BULAN  (date picker row)
@@ -662,7 +665,7 @@
   <section class="section reveal">
     <p class="sec-body">
       Dengan memohon rahmat & ridho Allah SWT
-      Kami mengundang "<span id="guest-name">Bapak/Ibu/Saudara</span>" untuk menghadiri syukuran pernikahan kami.
+      Kami mengundang <span id="guest-name">Bapak/Ibu/Saudara</span> untuk menghadiri syukuran pernikahan kami.
     </p>
   </section>
 
@@ -792,6 +795,8 @@
       const name = raw.replace(/([A-Z])/g, ' $1').trim();
       const el = document.getElementById('guest-name');
       if (el) el.textContent = name;
+    }else{
+
     }
   })();
   // ── Scroll Reveal ──────────────────────────────────
