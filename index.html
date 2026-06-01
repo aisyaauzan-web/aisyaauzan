@@ -662,7 +662,7 @@
   <section class="section reveal">
     <p class="sec-body">
       Dengan memohon rahmat & ridho Allah SWT
-      Kami mengundang “Saudara John Doe” untuk menghadiri syukuran pernikahan kami.
+      Kami mengundang "<span id="guest-name">Bapak/Ibu/Saudara</span>" untuk menghadiri syukuran pernikahan kami.
     </p>
   </section>
 
@@ -672,12 +672,12 @@
   <section class="section reveal">
     <h2 class="sec-title">AGUSTUS</h2>
     <div class="dates-row">
-      <div class="date-chip">Tue</div>
-      <div class="date-chip">Wed</div>
-      <div class="date-chip">Thu</div>
-      <div class="date-chip">Fri</div>
-      <div class="date-chip">Sat</div>
-      <div class="date-chip">Sun</div>
+      <div class="date-chip">Sel</div>
+      <div class="date-chip">Rab</div>
+      <div class="date-chip">Kam</div>
+      <div class="date-chip">Jum</div>
+      <div class="date-chip">Sab</div>
+      <div class="date-chip">Min</div>
     </div>
     <div class="dates-row">
       <div class="date-chip">4</div>
@@ -709,7 +709,7 @@
   <div class="dining-wrap reveal">
     <img src="eatPlace.svg" alt="Ilustrasi meja makan">
     <a href="https://maps.app.goo.gl/iHtgQDjHsYA4arFx8" target="_blank" rel="noopener" class="rodjo-link">
-      <img src="Rodjo.svg" class="rodjo-overlay" alt="Rodjo">
+      <img src="gmap.webp" class="rodjo-overlay" alt="Rodjo">
     </a>
   </div>
 
@@ -736,7 +736,7 @@
         <div class="event-name">Makan Bersama</div>
         <div class="event-sub">Restoran Keboen Rodjo</div>
       </div>
-      <img src="Group 32.svg" class="event-icon" alt="">
+      <img src="Group 33.svg" class="event-icon" alt="">
     </div>
 
   </section>
@@ -784,6 +784,17 @@
 </div><!-- .page -->
 
 <script>
+  // ── URL Param ──────────────────────────────────
+  (function() {
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    const raw = segments[segments.length - 1];
+    if (raw && raw !== 'index.html') {
+      // Insert space before each capital letter (camelCase → words)
+      const name = raw.replace(/([A-Z])/g, ' $1').trim();
+      const el = document.getElementById('guest-name');
+      if (el) el.textContent = name;
+    }
+  })();
   // ── Scroll Reveal ──────────────────────────────────
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver(entries => {
