@@ -786,7 +786,7 @@
 <script>
   // ── URL Param ──────────────────────────────────
   (function() {
-    const raw = window.location.search.replace('?','').trim;
+    const raw = window.location.search.replace('?', '').trim();
     if (raw) {
       // Insert space before each capital letter (camelCase → words)
       const name = raw.replace(/([A-Z])/g, ' $1').trim();
