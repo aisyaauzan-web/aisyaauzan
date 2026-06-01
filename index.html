@@ -786,7 +786,7 @@
 <script>
   // ── URL Param ──────────────────────────────────
   (function() {
-    const segments = window.location.pathname.split('?').filter(Boolean);
+    const segments = window.location.pathname.split('/').filter(Boolean);
     const raw = segments[segments.length - 1];
     if (raw && raw !== 'index.html') {
       // Insert space before each capital letter (camelCase → words)
