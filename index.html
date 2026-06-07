@@ -270,6 +270,26 @@
  transform: translate(-50%, -50%) scale(0);
  animation: instaPop 0.7s cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards;
  }
+ .sah-pop {
+ position: absolute;
+ pointer-events: none;
+ z-index: 20;
+ font-family: 'SingleDay-Regular', sans-serif;
+ font-size: 28px;
+ color: var(--orange);
+ font-weight: 800;
+ animation: sahFloat 1.2s cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards;
+ transform: translate(-50%, -50%);
+ white-space: nowrap;
+ text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+ }
+ @keyframes sahFloat {
+ 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+ 30% { transform: translate(-50%, -80%) scale(1.3); opacity: 1; }
+ 70% { transform: translate(-50%, -120%) scale(1.1); opacity: 0.8; }
+ 100% { transform: translate(-50%, -160%) scale(0.9); opacity: 0; }
+ }
+
  @keyframes instaPop {
  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
  40% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
@@ -596,7 +616,7 @@
  text-align: center;
  font-size: 11px;
  color: #bbb;
- margin-top: 300px;
+ margin-top: 100px;
  letter-spacing: 1px;
  }
 
@@ -687,6 +707,130 @@
  .rsvp-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
  .rsvp-input:disabled, .toggle-btn:disabled { opacity: .5; cursor: not-allowed; }
 
+ /* ══════════════════════════════════════════════════
+ § 0 COVER / SPLASH SCREEN
+ ══════════════════════════════════════════════════ */
+ #cover {
+ position: fixed;
+ inset: 0;
+ z-index: 9999;
+ background: #F5EFD8;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: opacity 0.8s ease, transform 0.8s ease;
+ }
+ #cover.hide {
+ opacity: 0;
+ transform: translateY(-30px);
+ pointer-events: none;
+ }
+ .cover-inner {
+ max-width: 430px;
+ width: 100%;
+ height: 100vh;
+ background: var(--cream);
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 12px;
+ position: relative;
+ overflow: hidden;
+ box-shadow: 0 0 40px rgba(0,0,0,.12);
+ }
+ .cover-inner::before, .cover-inner::after {
+ content: '';
+ position: absolute;
+ width: 130px;
+ height: 240px;
+ background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 120"><path d="M30 5 Q55 30 50 60 Q45 90 30 115 Q15 90 10 60 Q5 30 30 5Z" fill="%23C8B97A" opacity="0.18"/><line x1="30" y1="5" x2="30" y2="115" stroke="%23C8B97A" stroke-width="1.5" opacity="0.2"/></svg>') center/contain no-repeat;
+ pointer-events: none;
+ }
+ .cover-inner::before { top: 20px; left: -20px; transform: rotate(-20deg); }
+ .cover-inner::after { bottom: 20px; right: -20px; transform: rotate(160deg); }
+ .cover-label {
+ font-size: 13px;
+ color: var(--muted);
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ }
+ .cover-names {
+ font-size: clamp(48px, 17vw, 72px);
+ color: #FFBA26;
+ line-height: 0.9;
+ text-align: center;
+ }
+ .cover-names .amp { color: #4A66F5; font-size: 0.7em; }
+ .cover-date {
+ font-size: clamp(18px, 6vw, 28px);
+ color: var(--blue);
+ letter-spacing: 2px;
+ margin-top: 4px;
+ }
+ .cover-divider {
+ width: 60px;
+ height: 1px;
+ background: linear-gradient(to right, transparent, #D6C98A, transparent);
+ margin: 8px 0;
+ }
+ .cover-btn {
+ margin-top: 16px;
+ padding: 14px 40px;
+ background: var(--orange);
+ border: none;
+ border-radius: 50px;
+ font-family: 'SingleDay-Regular', sans-serif;
+ font-size: 20px;
+ color: #fff;
+ cursor: pointer;
+ box-shadow: 0 4px 18px rgba(255,119,36,0.35);
+ transition: transform .2s, box-shadow .2s;
+ animation: btnPulse 2s ease-in-out infinite;
+ }
+ .cover-btn:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(255,119,36,0.45); }
+ .cover-btn:active { transform: scale(0.97); }
+ @keyframes btnPulse {
+ 0%, 100% { box-shadow: 0 4px 18px rgba(255,119,36,0.35); }
+ 50% { box-shadow: 0 4px 28px rgba(255,119,36,0.6); }
+ }
+ @keyframes btnBounce {
+ 0%, 100% { transform: scale(1); }
+ 40% { transform: scale(1.1); }
+ 60% { transform: scale(0.95); }
+ 80% { transform: scale(1.04); }
+ }
+
+ /* Cover entrance animations */
+ @keyframes coverFadeUp {
+ from { opacity: 0; transform: translateY(24px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ @keyframes coverFadeDown {
+ from { opacity: 0; transform: translateY(-24px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ @keyframes coverScaleIn {
+ from { opacity: 0; transform: scale(0.7); }
+ to { opacity: 1; transform: scale(1); }
+ }
+ @keyframes coverLeafL {
+ from { opacity: 0; transform: rotate(-20deg) translateX(-40px); }
+ to { opacity: 1; transform: rotate(-20deg) translateX(0); }
+ }
+ @keyframes coverLeafR {
+ from { opacity: 0; transform: rotate(160deg) translateX(-40px); }
+ to { opacity: 1; transform: rotate(160deg) translateX(0); }
+ }
+
+ .cover-label { animation: coverFadeDown 0.7s ease 0.2s both; }
+ .cover-names { animation: coverScaleIn 0.8s cubic-bezier(0.17,0.89,0.32,1.28) 0.5s both; }
+ .cover-divider { animation: coverFadeUp 0.6s ease 1.0s both; }
+ .cover-date { animation: coverFadeUp 0.6s ease 1.2s both; }
+ .cover-btn { animation: coverFadeUp 0.7s ease 1.5s both, btnBounce 1.6s ease-in-out 2.2s infinite; }
+ .cover-inner::before { animation: coverLeafL 1s ease 0.3s both; }
+ .cover-inner::after { animation: coverLeafR 1s ease 0.3s both; }
+
  #rsvp-messages-list {
  max-height: 320px;
  overflow-y: auto;
@@ -722,6 +866,40 @@
  line-height: 1.6;
  }
 
+ /* ── Polaroid popup ── */
+ .polaroid-pop {
+ position: fixed;
+ pointer-events: none;
+ z-index: 999;
+ width: 252px;
+ background: #fff;
+ padding: 10px 10px 36px;
+ box-shadow: 4px 6px 24px rgba(0,0,0,0.22);
+ transform: translate(-50%, -50%) scale(0) rotate(-3deg);
+ animation: polaroidPopAnim 3.5s cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards;
+ }
+ .polaroid-pop img {
+ width: 100%;
+ aspect-ratio: 1;
+ object-fit: cover;
+ display: block;
+ }
+ .polaroid-pop .pp-date {
+ text-align: center;
+ font-family: 'SingleDay-Regular', sans-serif;
+ font-size: 12px;
+ color: #888;
+ margin-top: 8px;
+ letter-spacing: 1px;
+ }
+ @keyframes polaroidPopAnim {
+ 0% { transform: translate(-50%, -50%) scale(0) rotate(-3deg); opacity: 1; }
+ 15% { transform: translate(-50%, -50%) scale(1.08) rotate(-3deg); opacity: 1; }
+ 25% { transform: translate(-50%, -50%) scale(1.0) rotate(-3deg); opacity: 1; }
+ 80% { transform: translate(-50%, -50%) scale(1.0) rotate(-3deg); opacity: 1; }
+ 100% { transform: translate(-50%, -50%) scale(0.9) rotate(-3deg); opacity: 0; }
+ }
+
  .leaf-r {
  position: relative;
  }
@@ -739,6 +917,20 @@
  </style>
 </head>
 <body>
+
+<!-- ══ COVER / SPLASH ══════════════════════════════ -->
+<div id="cover">
+ <div class="cover-inner">
+ <p class="cover-label">Undangan Pernikahan</p>
+ <div class="cover-names">
+ AISYA<br><span class="amp">&</span><br>AUZAN
+ </div>
+ <div class="cover-divider"></div>
+ <p class="cover-date">07 . 08 . 2026</p>
+ <button class="cover-btn" id="cover-btn">Buka Undangan</button>
+ </div>
+</div>
+
 <div class="page">
 
  <!-- ══ § 1 HERO ════════════════════════════════════ -->
@@ -796,14 +988,17 @@
  </section>
 
  <!-- ══ § 4b INTRO PASANGAN ═════════════════════════════ -->
- <div class="reveal" style="display:flex; flex-direction:column; gap:16px; padding: 0 24px 24px;">
+ <div style="position:relative; overflow:hidden;">
+ <canvas id="ribbon-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0;"></canvas>
+ <div class="reveal" style="display:flex; flex-direction:column; gap:16px; padding: 0 24px 24px; position:relative; z-index:1;">
  <div style="display:flex; align-items:center; gap:12px; justify-content:flex-end;">
  <p class="sec-body" style="text-align:left; font-size:11px; padding: 12px; text-align:center;">Lorem ipsum dolor sit amet consectetur. Amet mauris eget elit placerat feugiat.</p>
- <div class="polaroid" style="width:48%; flex-shrink:0;"><div class="polaroid-inner"><img src="photo/photo1.jpeg" alt="Foto 1"></div><div class="polaroid-date">Nama Pasangan 1</div></div>
+ <div class="polaroid tentang-photo" data-popup-text="Halo, saya Pasangan 1! Senang bisa hadir di hari istimewa ini." data-popup-date="Ini perkenalan tambahan" style="width:48%; flex-shrink:0;"><div class="polaroid-inner"><img src="photo/photo1.jpeg" alt="Foto 1"></div><div class="polaroid-date">Nama Pasangan 1</div></div>
  </div>
  <div style="display:flex; align-items:center; gap:12px; justify-content:flex-start;">
- <div class="polaroid" style="width:48%; flex-shrink:0;"><div class="polaroid-inner"><img src="photo/photo2.jpeg" alt="Foto 2"></div><div class="polaroid-date">Nama Pasangan 2</div></div>
+ <div class="polaroid tentang-photo" data-popup-text="Halo, saya Pasangan 2! Tidak sabar menanti hari bahagia ini." data-popup-date="Perkenalan tambahan 2" style="width:48%; flex-shrink:0;"><div class="polaroid-inner"><img src="photo/photo2.jpeg" alt="Foto 2"></div><div class="polaroid-date">Nama Pasangan 2</div></div>
  <p class="sec-body" style="text-align:left; font-size:11px; padding: 12px; text-align:center;">Lorem ipsum dolor sit amet consectetur. Amet mauris eget elit placerat feugiat.</p>
+ </div>
  </div>
  </div>
 
@@ -979,6 +1174,31 @@
 </div><!-- .page -->
 
 <script>
+ // ── Cover / Splash ────────────────────────────────
+ document.getElementById('cover-btn').addEventListener('click', function() {
+ const btn = this;
+ const cover = document.getElementById('cover');
+
+ // Button press animation
+ btn.style.transition = 'transform 0.1s ease';
+ btn.style.transform = 'scale(0.88)';
+
+ setTimeout(() => {
+ btn.style.transform = 'scale(1.12)';
+ setTimeout(() => {
+ btn.style.transform = 'scale(1)';
+
+ // Flash the cover white then slide out
+ cover.style.background = '#fff';
+ setTimeout(() => {
+ window.scrollTo({ top: 0 });
+ cover.classList.add('hide');
+ cover.addEventListener('transitionend', () => cover.remove(), { once: true });
+ }, 180);
+ }, 120);
+ }, 100);
+ });
+
  // ── URL Param ──────────────────────────────────
  (function() {
  const raw = window.location.search.replace('?', '').trim();
@@ -1059,7 +1279,12 @@ initCarousel(
  if (raw) {
  const name = raw.replace(/([A-Z])/g, ' $1').trim();
  const nameInput = document.getElementById('rsvp-nama');
- if (nameInput) nameInput.value = name;
+ if (nameInput) {
+ nameInput.value = name;
+ nameInput.readOnly = true;
+ nameInput.style.opacity = '0.6';
+ nameInput.style.cursor = 'not-allowed';
+ }
  }
  });
 
@@ -1205,6 +1430,218 @@ initCarousel(
  heroVisual.appendChild(pop);
  pop.addEventListener('animationend', () => pop.remove());
  });
+ });
+
+ // ╔══════════════════════════════════════════════════════╗
+ // ║ RIBBON & HEART CANVAS ANIMATION ║
+ // ║ Background animation for "Tentang Kami" section ║
+ // ║ - Flowing ribbon trails ║
+ // ║ - Occasional heart shape paths ║
+ // ╚══════════════════════════════════════════════════════╝
+ (function() {
+ const canvas = document.getElementById('ribbon-canvas');
+ const parent = canvas.parentElement;
+ const ctx = canvas.getContext('2d');
+
+ function resize() {
+ canvas.width = parent.offsetWidth;
+ canvas.height = parent.offsetHeight;
+ }
+ resize();
+ window.addEventListener('resize', resize);
+
+ const COLORS = [
+ 'rgba(255,186,38,0.18)',
+ 'rgba(255,119,36,0.14)',
+ 'rgba(53,104,253,0.12)',
+ 'rgba(98,109,212,0.13)',
+ 'rgba(200,185,122,0.15)'
+ ];
+
+ let activeHearts = 0;
+
+ // Heart parametric path (normalised 0-1 steps)
+ function heartPoint(t, cx, cy, r) {
+ const a = t * Math.PI * 2;
+ const x = r * 16 * Math.pow(Math.sin(a), 3);
+ const y = -r * (13*Math.cos(a) - 5*Math.cos(2*a) - 2*Math.cos(3*a) - Math.cos(4*a));
+ return { x: cx + x, y: cy + y };
+ }
+
+ // Ribbon class
+ class Ribbon {
+ constructor(layerIndex) {
+ this.layerIndex = layerIndex;
+ this.reset(true);
+ }
+
+ reset(initial) {
+ this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+ this.width = 1.5 + Math.random() * 2.5;
+ this.isHeart = activeHearts === 0 && Math.random() < 0.18;
+ if (this.isHeart) activeHearts++;
+ this.speed = this.isHeart ? 0.015 + Math.random() * 0.01 : 0.003 + Math.random() * 0.004;
+ this.phase = Math.random() * Math.PI * 2;
+ this.progress = initial ? Math.random() : 0;
+ this.life = 0;
+ this.maxLife = 220 + Math.random() * 160;
+ this.trail = [];
+ this.cx = canvas.width * (0.2 + Math.random() * 0.6);
+ this.cy = canvas.height * (0.2 + Math.random() * 0.6);
+ this.r = this.isHeart ? 4.8 + Math.random() * 4.8 : 12 + Math.random() * 18;
+
+ // Ribbon wave params
+ this.ax = Math.random() * canvas.width;
+ this.ay = Math.random() * canvas.height;
+ this.vx = (Math.random() - 0.5) * 0.6;
+ this.vy = (Math.random() - 0.5) * 0.6;
+ this.freq = 0.015 + Math.random() * 0.02;
+ this.amp = 20 + Math.random() * 40;
+ }
+
+ update() {
+ this.life++;
+ this.phase += this.speed;
+
+ let px, py;
+ if (this.isHeart) {
+ const t = (this.phase % (Math.PI * 2)) / (Math.PI * 2);
+ const pt = heartPoint(t, this.cx, this.cy, this.r);
+ px = pt.x; py = pt.y;
+ } else {
+ this.ax += this.vx;
+ this.ay += this.vy;
+ if (this.ax < 0 || this.ax > canvas.width) this.vx *= -1;
+ if (this.ay < 0 || this.ay > canvas.height) this.vy *= -1;
+ px = this.ax + Math.sin(this.phase) * this.amp;
+ py = this.ay + Math.cos(this.phase * 0.7) * this.amp * 0.6;
+ }
+
+ this.trail.push({ x: px, y: py });
+ if (this.trail.length > (this.isHeart ? 200 : 60)) this.trail.shift();
+
+ if (this.life > this.maxLife) {
+ if (this.isHeart) activeHearts--;
+ this.reset(false);
+ }
+ }
+
+ draw() {
+ if (this.trail.length < 3) return;
+ const fade = Math.min(1, this.life / 30) * Math.min(1, (this.maxLife - this.life) / 30);
+ // Layer 0 = background (faint), Layer 1 = mid, Layer 2 = foreground (vivid)
+ const layerOpacity = [0.15, 0.35, 0.65][this.layerIndex] ?? 0.35;
+ ctx.save();
+ ctx.globalAlpha = this.isHeart ? fade * 0.45 : fade * layerOpacity;
+ ctx.strokeStyle = this.isHeart ? 'rgba(255,119,36,0.45)' : this.color;
+ ctx.lineWidth = this.isHeart ? this.width + 2 : this.width * ([0.8, 1.2, 1.8][this.layerIndex] ?? 1);
+ ctx.lineCap = 'round';
+ ctx.lineJoin = 'round';
+ ctx.beginPath();
+ ctx.moveTo(this.trail[0].x, this.trail[0].y);
+ for (let i = 1; i < this.trail.length - 1; i++) {
+ const mx = (this.trail[i].x + this.trail[i+1].x) / 2;
+ const my = (this.trail[i].y + this.trail[i+1].y) / 2;
+ ctx.quadraticCurveTo(this.trail[i].x, this.trail[i].y, mx, my);
+ }
+ ctx.stroke();
+ ctx.restore();
+ }
+ }
+
+ // 3 layers: 4 background, 3 mid, 2 foreground
+ const ribbons = [
+ ...Array.from({ length: 4 }, () => new Ribbon(0)),
+ ...Array.from({ length: 3 }, () => new Ribbon(1)),
+ ...Array.from({ length: 2 }, () => new Ribbon(2)),
+ ];
+
+ function loop() {
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ ribbons.forEach(r => { r.update(); r.draw(); });
+ requestAnimationFrame(loop);
+ }
+ loop();
+ })();
+
+ // ╚══════════════════════════════════════════════════════╝
+ // END RIBBON & HEART CANVAS ANIMATION
+ // ══════════════════════════════════════════════════════
+
+ // ── Tentang Kami photo polaroid pop ──────────────
+ document.querySelectorAll('.tentang-photo').forEach(photo => {
+ photo.addEventListener('click', function() {
+ const imgSrc = this.querySelector('.polaroid-inner img').src;
+ const dateText = this.dataset.popupDate;
+ const self = this;
+
+ // Hide the clicked polaroid
+ self.style.transition = 'none';
+ self.style.opacity = '0';
+
+ const pop = document.createElement('div');
+ pop.className = 'polaroid-pop';
+ pop.style.left = '50vw';
+ pop.style.top = '50vh';
+ pop.innerHTML = `<img src="${imgSrc}" alt=""><div class="pp-date">${dateText}</div>`;
+
+ document.body.appendChild(pop);
+ pop.addEventListener('animationend', () => {
+ pop.remove();
+ self.style.transition = 'opacity 0.6s ease';
+ self.style.opacity = '1';
+ });
+ });
+ });
+
+ // ── eatPlace.svg "klik logo map!" pop ────────────
+ document.querySelector('img[alt="Ilustrasi meja makan"]').addEventListener('click', function(e) {
+ const pop = document.createElement('div');
+ pop.className = 'sah-pop';
+ pop.textContent = 'klik logo map!';
+ pop.style.position = 'fixed';
+ pop.style.left = e.clientX + 'px';
+ pop.style.top = e.clientY + 'px';
+ pop.style.fontSize = '12px';
+ pop.style.textShadow = '0 0 6px rgba(255,255,255,0.9), 0 0 12px rgba(255,255,255,0.7), 0 0 20px rgba(255,255,255,0.4)';
+
+ document.body.appendChild(pop);
+ pop.addEventListener('animationend', () => pop.remove());
+ });
+
+ // ── Group.svg "Sah?" pop ──────────────────────────
+ document.querySelector('.event-icon[src="Group.svg"]').addEventListener('click', function(e) {
+ const rect = this.getBoundingClientRect();
+ const x = e.clientX - rect.left + rect.width / 2;
+ const y = e.clientY - rect.top;
+
+ const sah = document.createElement('div');
+ sah.className = 'sah-pop';
+ sah.textContent = 'Sah?';
+ sah.style.position = 'fixed';
+ sah.style.left = '50vw';
+ sah.style.top = (rect.top + rect.height / 2) + 'px';
+
+ document.body.appendChild(sah);
+ sah.addEventListener('animationend', () => sah.remove());
+ });
+
+ // ── Group 32.svg Rodjo image pop ─────────────────
+ document.querySelector('.event-icon[src="Group 32.svg"]').addEventListener('click', function(e) {
+ const rect = this.getBoundingClientRect();
+
+ const pop = document.createElement('img');
+ pop.src = 'Rodjo.svg';
+ pop.className = 'sah-pop';
+ pop.style.position = 'fixed';
+ pop.style.left = '50vw';
+ pop.style.top = (rect.top + rect.height / 2) + 'px';
+ pop.style.width = '80px';
+ pop.style.height = 'auto';
+ pop.style.fontSize = 'unset';
+
+ document.body.appendChild(pop);
+ pop.addEventListener('animationend', () => pop.remove());
  });
 
  // ── Blob click pop (Instagram-like) ───────────────
