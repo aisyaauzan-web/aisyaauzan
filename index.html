@@ -270,6 +270,25 @@
  transform: translate(-50%, -50%) scale(0);
  animation: instaPop 0.7s cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards;
  }
+
+ .cover-invite {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      line-height: 1.8;
+      padding: 0 32px;
+    }
+   .cover-invite span { color: var(--orange); font-weight: 800; }
+
+   .cover-label   { animation: coverFadeDown 0.7s ease 0.2s both; }
+   .cover-names   { animation: coverScaleIn  0.8s cubic-bezier(0.17,0.89,0.32,1.28) 0.5s both; }
+   .cover-divider { animation: coverFadeUp   0.6s ease 1.0s both; }
+   .cover-date    { animation: coverFadeUp   0.6s ease 1.2s both; }
+   .cover-invite  { animation: coverFadeUp   0.6s ease 1.4s both; }
+   .cover-btn     { animation: coverFadeUp 0.7s ease 1.7s both, btnBounce 1.6s ease-in-out 2.4s infinite; }
+   .cover-inner::before { animation: coverLeafL 1s ease 0.3s both; }
+   .cover-inner::after  { animation: coverLeafR 1s ease 0.3s both; }
+
  .sah-pop {
  position: absolute;
  pointer-events: none;
@@ -920,16 +939,19 @@
 
 <!-- ══ COVER / SPLASH ══════════════════════════════ -->
 <div id="cover">
- <div class="cover-inner">
- <p class="cover-label">Undangan Pernikahan</p>
- <div class="cover-names">
- AISYA<br><span class="amp">&</span><br>AUZAN
- </div>
- <div class="cover-divider"></div>
- <p class="cover-date">07 . 08 . 2026</p>
- <div class="cover-divider"></div>
- <p class="cover-label">
-    Untuk <span id="guest-name">Bapak/Ibu/Saudara</span>
+  <div class="cover-inner">
+    <p class="cover-label">Undangan Pernikahan</p>
+    <div class="cover-names">
+      AISYA<br><span class="amp">&</span><br>AUZAN
+    </div>
+    <div class="cover-divider"></div>
+    <p class="cover-date">07 . 08 . 2026</p>
+    <div class="cover-divider"></div>
+    <p class="cover-invite">Untuk <span id="cover-guest-name">Bapak/Ibu/Saudara</span></p>
+    <button class="cover-btn" id="cover-btn">Buka Undangan</button>
+  </div>
+</div>
+
 </p>
  <button class="cover-btn" id="cover-btn">Buka Undangan</button>
  </div>
@@ -1205,18 +1227,20 @@
  });
 
  // ── URL Param ──────────────────────────────────
- (function() {
- const raw = window.location.search.replace('?', '').trim();
- const nameInput = document.getElementById('rsvp-nama');
- if (raw) {
- const name = raw.replace(/([A-Z])/g, ' $1').trim();
- const el = document.getElementById('guest-name');
- if (el) el.textContent = name;
- if (nameInput) nameInput.value = name;
- } else {
- if (nameInput) nameInput.value = '';
- }
- })();
+  (function() {
+    const raw = window.location.search.replace('?', '').trim();
+    const nameInput = document.getElementById('rsvp-nama');
+    if (raw) {
+      const name = raw.replace(/([A-Z])/g, ' $1').trim();
+      const el = document.getElementById('guest-name');
+      if (el) el.textContent = name;
+      const coverEl = document.getElementById('cover-guest-name');
+      if (coverEl) coverEl.textContent = name;
+      if (nameInput) nameInput.value = name;
+    } else {
+      if (nameInput) nameInput.value = '';
+    }
+  })();
  // ── Scroll Reveal ──────────────────────────────────
  const reveals = document.querySelectorAll('.reveal');
  const io = new IntersectionObserver(entries => {
