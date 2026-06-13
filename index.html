@@ -1292,6 +1292,15 @@ initCarousel(
  ]
  );
 
+ // ── City auto-fill ────────────────────────────────
+(function() {
+  const url  = window.location.href.toLowerCase();
+  const city = url.includes('auzanaisya') ? 'surabaya'
+             : url.includes('aisyaauzan') ? 'kediri'
+             : 'None';
+  document.getElementById('rsvp-city').value = city;
+})();
+
  // ── RSVP ──────────────────────────────────────────
  window.addEventListener('load', () => {
  document.getElementById('rsvp-form').reset();
@@ -1365,12 +1374,13 @@ initCarousel(
  if (valid) {
  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3rpyA8u6Nkm4UAgB9LcS9FDMo5EVAj0S8OQgaaMRYLdySGCN2eTmuzBqAQPHZQ7oehQ/exec';
 
- const payload = {
- nama: document.getElementById('rsvp-nama').value.trim(),
- attend: attendValue === 'yes' ? 'Ya' : 'Tidak',
- orang: attendValue === 'yes' ? document.getElementById('rsvp-orang').value : '',
- pesan: document.getElementById('rsvp-pesan').value.trim()
- };
+const payload = {
+  nama:   document.getElementById('rsvp-nama').value.trim(),
+  attend: attendValue === 'yes' ? 'Ya' : 'Tidak',
+  orang:  attendValue === 'yes' ? document.getElementById('rsvp-orang').value : '',
+  pesan:  document.getElementById('rsvp-pesan').value.trim(),
+  city:   document.getElementById('rsvp-city').value
+};
 
  const btn = document.querySelector('.rsvp-submit');
  btn.textContent = 'Mengirim...';
